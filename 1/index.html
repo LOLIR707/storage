@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1</title>
+</head>
+
+<body>
+    <textarea></textarea>
+
+    <script>
+        let area = document.querySelector('textarea')
+
+        area.addEventListener('blur', function() {
+            let val = area.value
+            localStorage.clear()
+            localStorage.setItem('key', val)
+        })
+
+        let key = localStorage.getItem('key')
+        area.innerText = key
+    </script>
+</body>
+
+</html>

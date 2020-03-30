@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>4</title>
+</head>
+
+<body>
+    <h1>Заметки</h1>
+
+    <textarea></textarea>
+    <button>Добавить</button>
+
+    <div></div>
+
+    <script>
+        let area = document.querySelector('textarea')
+        let submit = document.querySelector('button')
+
+        submit.addEventListener('click', function () {
+            let a = document.querySelector('div')
+            let index = Math.round((localStorage.length + 1) / 2)
+            let text = area.value
+
+            if (text.value == '') {
+                return alert('Введите текст')
+            }
+
+            a.append(createZam(index, text))
+
+            localStorage.setItem("Index" + index, index)
+            localStorage.setItem("Zametka" + index, text)
+
+            area.value = ''
+        })
+
+        function createZam(index, text) {
+            let zametka = document.createElement('div')
+            zametka.classList.add('zametka')
+
+            let zametkaIndex = document.createElement('p')
+            zametkaIndex.innerText = "Номер " + index
+
+            let zametkaText = document.createElement('p')
+            zametkaText.innerText = text
+
+            zametka.append(zametkaIndex)
+            zametka.append(zametkaText)
+
+            return zametka
+        }
+
+        let a = document.querySelector('div')
+
+        for (let i = 1; i < Math.round((localStorage.length+1) / 2); i++) {
+            let zamIndex = localStorage.getItem("Index" + i)
+            let zamtext = localStorage.getItem("Zametka" + i)
+            a.append(createZam(zamIndex, zamtext))
+        }
+
+    </script>
+
+</body>
+
+</html>

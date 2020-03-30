@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3</title>
+</head>
+
+<body>
+    <form name="form">
+        <div>
+            <input id="input1" name="input1" type="text" placeholder="Text">
+            <input id="input2" name="input2" type="text" placeholder="Text">
+        </div>
+
+        <div>
+            <textarea id="textarea" name="textarea1" placeholder="Textarea"></textarea>
+        </div>
+
+        <div>
+            <input type="checkbox" name="checkbox1" id="checkbox1"><label for="checkbox1">Checkbox</label>
+            <input type="checkbox" name="checkbox2" id="checkbox2"><label for="checkbox2">Checkbox</label>
+        </div>
+
+        <select name="select">
+            <option>Option</option>
+            <option>Option</option>
+        </select>
+    </form>
+
+    <script>
+        let listItem = document.forms["form"]
+
+            for (let i = 0; i <= listItem.length - 1; i++) {
+                let key = listItem[i].getAttribute('name')
+
+                listItem[i].addEventListener('change', () => {
+                    if (listItem[i].getAttribute('type') == 'checkbox') {
+                        let val = listItem[i].checked
+                        let key = listItem[i].id
+                        localStorage.setItem(key, val)
+                    } else {
+                        let val = listItem[i].value
+                        localStorage.setItem(key, val)
+                    }
+                })
+            }
+        
+        for (let elem of listItem) {
+            let key = elem.getAttribute('name')
+            elem.value = localStorage.getItem(key)
+
+            if (elem.getAttribute('type') == 'checkbox') {  // пришлось сделать такую проверку, по другому почему-то не работает....
+                if (elem.value == 'false' || elem.value == '') {
+                    elem.checked = false
+                } else {
+                    elem.checked = true
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

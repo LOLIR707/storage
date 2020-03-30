@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2</title>
+</head>
+
+<body>
+    <textarea></textarea>
+
+    <script>
+        let area = document.querySelector('textarea')
+        let index = localStorage.length
+
+        area.addEventListener('change', function () {
+            let areaval = area.value
+
+            if (areaval != '') {
+                index++
+                localStorage.setItem(`key${index}`, areaval)
+            }
+
+            if (localStorage.length > 1 && document.querySelector('button') == null) {
+                let appen = document.querySelector('body')
+
+                let next = document.createElement('button')
+                next.id = 'next'
+                next.innerText = 'Cледующий'
+
+                let prev = document.createElement('button')
+                prev.id = 'prev'
+                prev.innerText = 'Предыдущий'
+
+                appen.append(prev)
+                appen.append(next)
+
+
+                if (document.querySelector('button') != null) {
+                    let button = document.querySelectorAll('button');
+
+                    button[0].addEventListener('click', function () {
+                        index--
+                        if (index < 1) {
+                            index = localStorage.length
+                        }
+                        area.value = localStorage.getItem(`key${index}`)
+                    })
+                    button[1].addEventListener('click', function () {
+                        index++
+                        if (index > localStorage.length) {
+                            index = 1
+                        }
+                        area.value = localStorage.getItem(`key${index}`)
+                    })
+                }
+            }
+        })
+
+
+        let key = localStorage.getItem(`key${localStorage.length-1}`)
+        area.innerText = key
+    </script>
+</body>
+
+</html>
